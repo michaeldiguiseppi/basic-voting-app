@@ -1,0 +1,20 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <h3>Question: {{ question.question }}</h3>
+    <form method="POST" action="/admin/questions/{{ question.id }}/answers/add">
+      <input type="text" name="answer1" placeholder="Enter First Answer" class="form-control">
+      <input type="text" name="answer2" placeholder="Enter Second Answer" class="form-control">
+      <button type="submit" class="btn btn-primary">Add Answer</button>
+    </form>
+  </div>
+
+
+{% endblock %}

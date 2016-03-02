@@ -1,0 +1,21 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+  <div class="container">
+    <h1>{{ title }}</h1>
+    {% for question in questions %}
+    <p><a href="/admin/questions/{{ question.id }}/edit">{{ question.question }}</a></p>
+    {% endfor %}
+    <form method="POST" action="/admin/questions/add">
+      <input type="text" name="question" placeholder="Enter a Question" class="form-control">
+      <button type="submit" class="btn btn-primary">Add Question</button>
+    </form>
+  </div>
+
+
+{% endblock %}
