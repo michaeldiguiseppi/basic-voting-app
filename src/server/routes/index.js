@@ -58,14 +58,11 @@ router.get('/admin/questions/:id/answers/add', function(req, res, next) {
 });
 
 router.post('/admin/questions/:id/answers/add', function(req, res, next) {
+console.log('bodddyyyyy', req.body);
   knex('answers').insert({
     answer: req.body.answer1,
     question_id: req.params.id
   }).then(function() {
-    knex('answers').insert({
-      answer: req.body.answer2,
-      question_id: req.params.id
-    }).then(function() {
       res.redirect('/');
     });
   });
@@ -76,14 +73,23 @@ router.get('/admin/questions/:id/edit', function(req, res, next) {
     this.on('questions.id', '=', 'answers.question_id');
   }).where('questions.id', req.params.id).then(function(data) {
     console.log(data);
-    res.render('edit', {questions: data});
+    res.render('edit', {questions: data, question_id: data[0].question_id});
   });
 })
 
 router.post('/admin/questions/:id/edit', function(req, res, next) {
-  Questions().where('id', req.params.id).then(function(data) {
-    res.json(data);
+  var keys = Object.keys(req.body);
+
+  var promises = keys.map(function(key) {
+    return knex('answers').update({
+      answer: req.body[key]
+    }).where('id', key);
   });
+
+  Promise.all(promises).then(function() {
+    res.redirect('/');
+  });
+
 });
 
 module.exports = router;

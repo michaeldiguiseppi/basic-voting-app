@@ -9,14 +9,16 @@
 
     <h1>{{ title }}</h1>
 
-
+    <form method="POST" action="/admin/questions/{{ question_id }}/edit">
     {% for question in questions %}
-    <form method="POST" action="/admin/questions/{{ question.id }}/edit">
-      <input type="text" value="{{ question.answer }}" name="{{ question.answer }}">
 
-      <button type="submit" class="btn btn-info">Submit</button>
-    </form>
+      <input type="text" value="{{ question.answer }}" name="{{ question.id }}">
+
+
     {% endfor %}
+
+          <button type="submit" class="btn btn-info">Submit</button>
+        </form>
   </div>
 
 
